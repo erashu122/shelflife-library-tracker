@@ -15,46 +15,98 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 20% 10%, rgba(20, 184, 166, 0.22), transparent 28%),
-    radial-gradient(circle at 85% 5%, rgba(244, 114, 182, 0.18), transparent 24%),
-    linear-gradient(135deg, #eef8f7 0%, #f7f2ea 48%, #eef2ff 100%);
+    radial-gradient(circle at 18% 12%, rgba(20, 184, 166, 0.28), transparent 30%),
+    radial-gradient(circle at 82% 8%, rgba(244, 114, 182, 0.18), transparent 26%),
+    radial-gradient(circle at 56% 86%, rgba(250, 204, 21, 0.12), transparent 28%),
+    linear-gradient(135deg, #eef8f7 0%, #f8fafc 42%, #eef2ff 100%);
+  background-attachment: fixed;
 }
 
 .dark body {
   background:
-    radial-gradient(circle at 16% 14%, rgba(20, 184, 166, 0.18), transparent 26%),
-    radial-gradient(circle at 84% 8%, rgba(244, 114, 182, 0.12), transparent 24%),
-    linear-gradient(135deg, #111827 0%, #1f2937 42%, #111827 100%);
+    radial-gradient(circle at 18% 16%, rgba(20, 184, 166, 0.24), transparent 28%),
+    radial-gradient(circle at 84% 9%, rgba(244, 114, 182, 0.16), transparent 26%),
+    radial-gradient(circle at 56% 86%, rgba(250, 204, 21, 0.08), transparent 24%),
+    linear-gradient(135deg, #07121f 0%, #101827 44%, #0b1020 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+.dark body::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
 }
 
 @layer components {
   .glass-panel {
-    @apply border border-white/45 shadow-glass backdrop-blur-xl dark:border-white/10;
-    background: rgba(255, 255, 255, 0.68);
+    @apply border border-white/55 shadow-glass backdrop-blur-2xl transition duration-300 dark:border-white/10;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.58)),
+      rgba(255, 255, 255, 0.68);
   }
 
   .dark .glass-panel {
-    background: rgba(3, 7, 18, 0.54);
+    background:
+      linear-gradient(145deg, rgba(15, 23, 42, 0.86), rgba(3, 7, 18, 0.62)),
+      rgba(3, 7, 18, 0.54);
   }
 
   .input {
-    @apply w-full rounded-lg border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-white/10 dark:bg-white/5 dark:text-gray-100;
+    @apply w-full rounded-lg border border-gray-200 bg-white/80 px-4 py-3 text-sm text-gray-900 outline-none transition duration-300 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-white/10 dark:bg-white/5 dark:text-gray-100;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-500/25 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-teal-600 px-4 py-3 text-sm font-semibold text-white shadow-glow transition duration-300 hover:-translate-y-0.5 hover:bg-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/25 disabled:cursor-not-allowed disabled:opacity-60;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white/70 px-4 py-3 text-sm font-semibold text-gray-700 transition hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-gray-100 dark:hover:bg-white/10;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white/70 px-4 py-3 text-sm font-semibold text-gray-700 transition duration-300 hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-gray-100 dark:hover:bg-white/10;
   }
 
   .nav-link {
-    @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-white/70 hover:text-gray-950 dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white;
+    @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition duration-300 hover:translate-x-1 hover:bg-white/70 hover:text-gray-950 dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white;
   }
 
   .nav-link-active {
-    @apply bg-teal-600 text-white hover:bg-teal-600 hover:text-white;
+    @apply bg-teal-600 text-white shadow-glow hover:bg-teal-600 hover:text-white;
+  }
+
+  .premium-card {
+    @apply glass-panel rounded-lg;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .premium-card::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.32), transparent 32%, rgba(20, 184, 166, 0.08));
+    opacity: 0.72;
+  }
+
+  .lift-card {
+    @apply transition duration-300 hover:-translate-y-1 hover:shadow-glow;
+  }
+
+  .progress-shine {
+    background-image: linear-gradient(90deg, #14b8a6, #2dd4bf, #facc15, #14b8a6);
+    background-size: 220% 100%;
+    animation: shimmer 3s linear infinite;
   }
 }
 

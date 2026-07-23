@@ -26,7 +26,8 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-lg p-6 sm:p-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="premium-card animate-riseIn rounded-lg p-6 sm:p-8">
+      <div className="relative z-10">
       <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Create account</p>
       <h2 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">Build your private library</h2>
 
@@ -83,6 +84,7 @@ export default function Register() {
       <p className="mt-5 text-center text-sm text-gray-500 dark:text-gray-400">
         Already have an account? <Link className="font-semibold text-teal-700 dark:text-teal-300" to="/login">Login</Link>
       </p>
+      </div>
     </form>
   );
 }

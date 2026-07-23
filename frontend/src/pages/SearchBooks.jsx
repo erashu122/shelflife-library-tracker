@@ -1,4 +1,4 @@
-import { Loader2, Search } from 'lucide-react';
+import { Loader2, Search, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import BookCard from '../components/BookCard';
@@ -54,12 +54,19 @@ export default function SearchBooks() {
 
   return (
     <section className="space-y-6">
-      <div>
-        <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Book Search</p>
-        <h1 className="mt-1 text-3xl font-bold text-gray-950 dark:text-white">Discover books from Google Books</h1>
+      <div className="premium-card animate-riseIn p-6">
+        <div className="relative z-10">
+          <p className="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 dark:text-teal-300">
+            <Sparkles size={16} /> Book Search
+          </p>
+          <h1 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">Discover books from Google Books</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500 dark:text-gray-400">
+            Search by title, author, ISBN or topic and add the best matches straight into your personal shelf.
+          </p>
+        </div>
       </div>
 
-      <div className="glass-panel flex items-center gap-3 rounded-lg p-3">
+      <div className="premium-card flex items-center gap-3 rounded-lg p-3">
         <Search className="ml-2 text-gray-400" size={20} />
         <input
           className="w-full bg-transparent py-3 text-sm outline-none"

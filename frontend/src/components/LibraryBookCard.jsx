@@ -12,20 +12,22 @@ export default function LibraryBookCard({ item, onUpdate, onDelete }) {
   });
 
   return (
-    <article className="glass-panel grid gap-5 rounded-lg p-4 lg:grid-cols-[86px_1fr]">
-      <img
-        src={item.book.coverImage || 'https://placehold.co/180x270?text=ShelfLife'}
-        alt={item.book.title}
-        className="aspect-[2/3] w-24 rounded-lg object-cover"
-        loading="lazy"
-      />
-      <div className="min-w-0">
+    <article className="premium-card lift-card animate-riseIn grid gap-5 rounded-lg p-4 lg:grid-cols-[96px_1fr]">
+      <div className="relative z-10">
+        <img
+          src={item.book.coverImage || 'https://placehold.co/180x270?text=ShelfLife'}
+          alt={item.book.title}
+          className="aspect-[2/3] w-24 rounded-lg object-cover shadow-lg"
+          loading="lazy"
+        />
+      </div>
+      <div className="relative z-10 min-w-0">
         <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
           <div>
             <h3 className="text-lg font-bold text-gray-950 dark:text-white">{item.book.title}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">{item.book.author || 'Unknown author'}</p>
           </div>
-          <span className="w-fit rounded-lg bg-teal-500/12 px-3 py-1 text-xs font-semibold text-teal-700 dark:text-teal-300">
+          <span className="w-fit rounded-lg border border-teal-500/20 bg-teal-500/12 px-3 py-1 text-xs font-semibold text-teal-700 dark:text-teal-300">
             {statusLabel(item.status)}
           </span>
         </div>
@@ -54,6 +56,9 @@ export default function LibraryBookCard({ item, onUpdate, onDelete }) {
               onChange={(event) => setDraft((current) => ({ ...current, progress: Number(event.target.value) }))}
               className="mt-4 w-full accent-teal-600"
             />
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-white/10">
+              <div className="progress-shine h-full rounded-full" style={{ width: `${draft.progress}%` }} />
+            </div>
           </label>
         </div>
 

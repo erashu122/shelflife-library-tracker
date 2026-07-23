@@ -51,8 +51,8 @@ export default function Profile() {
         <h1 className="mt-1 text-3xl font-bold text-gray-950 dark:text-white">Account settings</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-lg p-6">
-        <div className="grid gap-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="premium-card animate-riseIn rounded-lg p-6">
+        <div className="relative z-10 grid gap-5">
           <label className="text-sm font-medium">
             Name
             <input className="input mt-2" {...register('name')} />
@@ -73,12 +73,13 @@ export default function Profile() {
           </div>
         </div>
 
-        <button type="submit" disabled={isSubmitting} className="btn-primary mt-6">
+        <button type="submit" disabled={isSubmitting} className="btn-primary relative z-10 mt-6">
           <Save size={17} /> Save profile
         </button>
       </form>
 
-      <div className="glass-panel rounded-lg border-rose-300/60 p-6 dark:border-rose-400/20">
+      <div className="premium-card animate-riseIn rounded-lg border-rose-300/60 p-6 dark:border-rose-400/20">
+        <div className="relative z-10">
         <h2 className="text-lg font-bold text-gray-950 dark:text-white">Danger zone</h2>
         <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
           Deleting your account removes your user profile and all personal library entries.
@@ -86,6 +87,7 @@ export default function Profile() {
         <button type="button" onClick={deleteAccount} className="btn-secondary mt-5 text-rose-600 dark:text-rose-300">
           <Trash2 size={17} /> Delete account
         </button>
+        </div>
       </div>
     </section>
   );

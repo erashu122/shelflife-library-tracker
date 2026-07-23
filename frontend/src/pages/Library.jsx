@@ -1,4 +1,4 @@
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, Sparkles } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import EmptyState from '../components/EmptyState';
@@ -53,8 +53,11 @@ export default function Library() {
     <section className="space-y-6">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
         <div>
-          <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Library</p>
+          <p className="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 dark:text-teal-300">
+            <Sparkles size={16} /> Library
+          </p>
           <h1 className="mt-1 text-3xl font-bold text-gray-950 dark:text-white">Your personal shelf</h1>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Filter, sort, review and update progress without leaving the shelf.</p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
           <select className="input min-w-44" value={status} onChange={(event) => setStatus(event.target.value)}>

@@ -30,7 +30,8 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-lg p-6 sm:p-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="premium-card animate-riseIn rounded-lg p-6 sm:p-8">
+      <div className="relative z-10">
       <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Sign in</p>
       <h2 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">Continue your reading streak</h2>
 
@@ -93,6 +94,7 @@ export default function Login() {
       <p className="mt-5 text-center text-sm text-gray-500 dark:text-gray-400">
         New to ShelfLife? <Link className="font-semibold text-teal-700 dark:text-teal-300" to="/register">Create account</Link>
       </p>
+      </div>
     </form>
   );
 }

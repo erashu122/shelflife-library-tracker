@@ -69,6 +69,16 @@ Collections automatic banenge:
 - `books`
 - `user_books`
 
+## Auth Options
+
+App me ab 3 auth UI options dikhte hain:
+
+- Email + password
+- Phone number + password
+- Continue with Google button
+
+Google login ke liye abhi OAuth Client ID/secret setup required hai. Button UI ready hai, actual Google OAuth baad me Google Cloud credentials ke saath connect karna hoga.
+
 Docker se local MongoDB start karna ho:
 
 ```bash

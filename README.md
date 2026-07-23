@@ -10,6 +10,8 @@ ShelfLife is a production-ready full stack application for searching books with 
 ## Features
 
 - User registration and login with JWT authentication
+- Email/password login and phone/password login
+- Google login button placeholder for future OAuth setup
 - BCrypt password hashing
 - Protected frontend routes
 - Google Books API search with pagination

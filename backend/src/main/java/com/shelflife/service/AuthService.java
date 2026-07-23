@@ -10,9 +10,7 @@ import com.shelflife.repository.UserRepository;
 import com.shelflife.security.JwtService;
 import com.shelflife.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,6 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final UserMapper userMapper;
 
@@ -31,10 +28,15 @@ public class AuthService {
         if (userRepository.existsByEmail(email)) {
             throw new ConflictException("Email is already registered");
         }
+        String phone = normalizePhone(request.phone());
+        if (phone != null && userRepository.existsByPhone(phone)) {
+            throw new ConflictException("Phone number is already registered");
+        }
 
         User user = User.builder()
                 .name(request.name().trim())
                 .email(email)
+                .phone(phone)
                 .password(passwordEncoder.encode(request.password()))
                 .build();
         User saved = userRepository.save(user);
@@ -43,14 +45,31 @@ public class AuthService {
     }
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.email().trim().toLowerCase(),
-                request.password()
-        ));
-
-        User user = userRepository.findByEmail(request.email().trim().toLowerCase())
-                .orElseThrow(() -> new BadCredentialsException("Invalid email or password"));
+        User user = findLoginUser(request);
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new BadCredentialsException("Invalid credentials");
+        }
         String token = jwtService.generateToken(new UserPrincipal(user));
         return new AuthResponse(token, userMapper.toResponse(user));
+    }
+
+    private User findLoginUser(LoginRequest request) {
+        if (request.email() != null && !request.email().isBlank()) {
+            return userRepository.findByEmail(request.email().trim().toLowerCase())
+                    .orElseThrow(() -> new BadCredentialsException("Invalid credentials"));
+        }
+        String phone = normalizePhone(request.phone());
+        if (phone != null) {
+            return userRepository.findByPhone(phone)
+                    .orElseThrow(() -> new BadCredentialsException("Invalid credentials"));
+        }
+        throw new BadCredentialsException("Email or phone is required");
+    }
+
+    private String normalizePhone(String phone) {
+        if (phone == null || phone.isBlank()) {
+            return null;
+        }
+        return phone.replaceAll("\\s+", "");
     }
 }

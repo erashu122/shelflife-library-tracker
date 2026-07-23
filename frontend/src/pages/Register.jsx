@@ -1,4 +1,4 @@
-import { UserPlus } from 'lucide-react';
+import { Chrome, Phone, UserPlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,8 +11,12 @@ export default function Register() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
   async function onSubmit(values) {
+    const payload = {
+      ...values,
+      phone: values.phone?.trim() || '',
+    };
     try {
-      await createAccount(values);
+      await createAccount(payload);
       toast.success('Account created');
       navigate('/dashboard', { replace: true });
     } catch (error) {
@@ -25,6 +29,20 @@ export default function Register() {
       <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Create account</p>
       <h2 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">Build your private library</h2>
 
+      <button
+        type="button"
+        className="btn-secondary mt-8 w-full"
+        onClick={() => toast('Google login needs OAuth client setup first')}
+      >
+        <Chrome size={18} /> Continue with Google
+      </button>
+
+      <div className="mt-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
+        <span className="h-px flex-1 bg-white/20" />
+        Or create with email
+        <span className="h-px flex-1 bg-white/20" />
+      </div>
+
       <div className="mt-8 grid gap-4">
         <label className="text-sm font-medium">
           Name
@@ -35,6 +53,23 @@ export default function Register() {
           Email
           <input className="input mt-2" type="email" {...register('email', { required: 'Email is required' })} />
           {errors.email && <span className="text-xs text-rose-500">{errors.email.message}</span>}
+        </label>
+        <label className="text-sm font-medium">
+          Phone Number
+          <div className="relative mt-2">
+            <Phone className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={17} />
+            <input
+              className="input pl-11"
+              placeholder="Optional, e.g. 9876543210"
+              {...register('phone', {
+                pattern: {
+                  value: /^[+]?[0-9]{10,15}$|^$/,
+                  message: 'Use 10 to 15 digits',
+                },
+              })}
+            />
+          </div>
+          {errors.phone && <span className="text-xs text-rose-500">{errors.phone.message}</span>}
         </label>
         <label className="text-sm font-medium">
           Password

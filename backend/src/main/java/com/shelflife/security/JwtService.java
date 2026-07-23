@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Date;
 
@@ -53,11 +54,15 @@ public class JwtService {
     }
 
     private SecretKey signingKey() {
-        byte[] keyBytes;
+        byte[] rawKeyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        byte[] keyBytes = rawKeyBytes;
         try {
-            keyBytes = Decoders.BASE64.decode(secret);
+            byte[] decoded = Decoders.BASE64.decode(secret);
+            if (decoded.length >= 32) {
+                keyBytes = decoded;
+            }
         } catch (IllegalArgumentException ex) {
-            keyBytes = secret.getBytes();
+            keyBytes = rawKeyBytes;
         }
         return Keys.hmacShaKeyFor(keyBytes);
     }

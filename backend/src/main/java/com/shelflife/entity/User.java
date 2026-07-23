@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
 
@@ -29,6 +30,7 @@ public class User {
     private String email;
 
     @Indexed(name = "phone_unique_not_null", unique = true, partialFilter = "{ 'phone': { '$type': 'string' } }")
+    @Field(write = Field.Write.NON_NULL)
     private String phone;
 
     private String password;

@@ -16,7 +16,7 @@ app:
   google-books:
     api-key: ${GOOGLE_BOOKS_API_KEY:}
   google:
-    oauth-client-id: ${GOOGLE_OAUTH_CLIENT_ID:}
+    oauth-client-id: ${GOOGLE_OAUTH_CLIENT_ID:179031194859-fmmrk9m69qdmdll8bh85qj32sgjne8cb.apps.googleusercontent.com}
   cors:
     allowed-origins: ${FRONTEND_URL:http://localhost:5173}
 

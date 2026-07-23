@@ -219,13 +219,25 @@ Add screenshots after running the app:
 
 ### Backend on Render
 
-1. Create a MongoDB Atlas database.
-2. Create a Web Service from this repository.
-3. Set root directory to `backend`.
-4. Build command: `mvn clean package -DskipTests`
-5. Start command: `java -jar target/shelflife-api-0.0.1-SNAPSHOT.jar`
-6. Add backend environment variables from `backend/.env.example`.
-7. Set `FRONTEND_URL` to your Vercel domain.
+1. Create a MongoDB Atlas database and copy its connection string.
+2. In Render, create a **Blueprint** from this GitHub repository, or create a Web Service manually.
+3. If manual, use root directory `backend` and Docker runtime. The backend includes `backend/Dockerfile`.
+4. Add backend environment variables:
+
+```env
+MONGODB_URI=mongodb+srv://...
+JWT_SECRET=use-a-long-random-secret-at-least-32-characters
+JWT_EXPIRATION_MS=86400000
+GOOGLE_BOOKS_API_KEY=your-google-books-api-key
+GOOGLE_OAUTH_CLIENT_ID=your-client-id.apps.googleusercontent.com
+FRONTEND_URL=https://your-vercel-app.vercel.app
+```
+
+5. Deploy. Swagger will be available at:
+
+```text
+https://your-render-service.onrender.com/swagger-ui.html
+```
 
 ### Frontend on Vercel
 
@@ -233,7 +245,19 @@ Add screenshots after running the app:
 2. Set root directory to `frontend`.
 3. Build command: `npm run build`
 4. Output directory: `dist`
-5. Add `VITE_API_BASE_URL=https://your-render-service.onrender.com/api`.
+5. Add frontend environment variables:
+
+```env
+VITE_API_BASE_URL=https://your-render-service.onrender.com/api
+VITE_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+```
+
+6. Deploy. The frontend includes `frontend/vercel.json` so React Router refreshes work in production.
+
+After Vercel gives you the final domain, update:
+
+- Render `FRONTEND_URL`
+- Google OAuth authorized JavaScript origins with the Vercel URL
 
 ### Database
 

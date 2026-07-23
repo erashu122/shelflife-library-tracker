@@ -25,7 +25,7 @@ export default function GoogleAuthButton() {
   return (
     <div className="mt-8 overflow-hidden rounded-lg border border-gray-200 bg-white p-2 dark:border-white/10">
       <GoogleLogin
-        width="100%"
+        width="680"
         text="continue_with"
         shape="rectangular"
         theme="outline"

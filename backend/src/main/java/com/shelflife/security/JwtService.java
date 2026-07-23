@@ -54,15 +54,10 @@ public class JwtService {
     }
 
     private SecretKey signingKey() {
-        byte[] rawKeyBytes = secret.getBytes(StandardCharsets.UTF_8);
-        byte[] keyBytes = rawKeyBytes;
-        try {
-            byte[] decoded = Decoders.BASE64.decode(secret);
-            if (decoded.length >= 32) {
-                keyBytes = decoded;
-            }
-        } catch (IllegalArgumentException ex) {
-            keyBytes = rawKeyBytes;
+        String configuredSecret = secret == null ? "" : secret.trim();
+        byte[] keyBytes = configuredSecret.getBytes(StandardCharsets.UTF_8);
+        if (configuredSecret.startsWith("base64:")) {
+            keyBytes = Decoders.BASE64.decode(configuredSecret.substring("base64:".length()));
         }
         return Keys.hmacShaKeyFor(keyBytes);
     }

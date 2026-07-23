@@ -1,10 +1,11 @@
-import { Chrome, LogIn, Mail, Phone } from 'lucide-react';
+import { LogIn, Mail, Phone } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { apiMessage } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import GoogleAuthButton from '../components/GoogleAuthButton';
 
 export default function Login() {
   const { login } = useAuth();
@@ -33,13 +34,7 @@ export default function Login() {
       <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Sign in</p>
       <h2 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">Continue your reading streak</h2>
 
-      <button
-        type="button"
-        className="btn-secondary mt-8 w-full"
-        onClick={() => toast('Google login needs OAuth client setup first')}
-      >
-        <Chrome size={18} /> Continue with Google
-      </button>
+      <GoogleAuthButton />
 
       <div className="mt-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
         <span className="h-px flex-1 bg-white/20" />

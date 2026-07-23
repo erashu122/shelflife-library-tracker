@@ -1,9 +1,10 @@
-import { Chrome, Phone, UserPlus } from 'lucide-react';
+import { Phone, UserPlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { apiMessage } from '../services/api';
+import GoogleAuthButton from '../components/GoogleAuthButton';
 
 export default function Register() {
   const { register: createAccount } = useAuth();
@@ -29,13 +30,7 @@ export default function Register() {
       <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Create account</p>
       <h2 className="mt-2 text-3xl font-bold text-gray-950 dark:text-white">Build your private library</h2>
 
-      <button
-        type="button"
-        className="btn-secondary mt-8 w-full"
-        onClick={() => toast('Google login needs OAuth client setup first')}
-      >
-        <Chrome size={18} /> Continue with Google
-      </button>
+      <GoogleAuthButton />
 
       <div className="mt-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
         <span className="h-px flex-1 bg-white/20" />

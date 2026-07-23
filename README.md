@@ -11,7 +11,7 @@ ShelfLife is a production-ready full stack application for searching books with 
 
 - User registration and login with JWT authentication
 - Email/password login and phone/password login
-- Google login button placeholder for future OAuth setup
+- Google login with Google Identity Services OAuth credential verification
 - BCrypt password hashing
 - Protected frontend routes
 - Google Books API search with pagination
@@ -82,6 +82,7 @@ MONGODB_URI=mongodb://localhost:27017/shelflife
 JWT_SECRET=replace-with-a-64-character-production-secret-key-at-minimum
 JWT_EXPIRATION_MS=86400000
 GOOGLE_BOOKS_API_KEY=
+GOOGLE_OAUTH_CLIENT_ID=
 FRONTEND_URL=http://localhost:5173
 ```
 
@@ -127,6 +128,30 @@ Frontend: copy `frontend/.env.example` to `frontend/.env`.
 
 ```env
 VITE_API_BASE_URL=http://localhost:8080/api
+VITE_GOOGLE_CLIENT_ID=
+```
+
+## Google Authentication Setup
+
+Google Books API key is not enough for Google sign-in. Create a separate OAuth Client ID:
+
+1. Open Google Cloud Console.
+2. Create or select a project.
+3. Go to **APIs & Services -> OAuth consent screen** and configure the app.
+4. Go to **Credentials -> Create Credentials -> OAuth client ID**.
+5. Choose **Web application**.
+6. Add authorized JavaScript origin:
+
+```text
+http://localhost:5173
+```
+
+7. Copy the OAuth Client ID.
+8. Put the same Client ID in:
+
+```env
+GOOGLE_OAUTH_CLIENT_ID=your-client-id.apps.googleusercontent.com
+VITE_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
 ```
 
 ## Local Installation

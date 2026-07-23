@@ -30,6 +30,7 @@ MONGODB_URI=mongodb://localhost:27017/shelflife
 JWT_SECRET=replace-with-a-64-character-production-secret-key-at-minimum
 JWT_EXPIRATION_MS=86400000
 GOOGLE_BOOKS_API_KEY=
+GOOGLE_OAUTH_CLIENT_ID=
 FRONTEND_URL=http://localhost:5173
 ```
 
@@ -77,7 +78,33 @@ App me ab 3 auth UI options dikhte hain:
 - Phone number + password
 - Continue with Google button
 
-Google login ke liye abhi OAuth Client ID/secret setup required hai. Button UI ready hai, actual Google OAuth baad me Google Cloud credentials ke saath connect karna hoga.
+Google login ke liye Google Books API key kaam nahi karegi. Uske liye alag OAuth Client ID banana hoga.
+
+Google Cloud Console me:
+
+1. **APIs & Services -> OAuth consent screen** setup karo.
+2. **Credentials -> Create Credentials -> OAuth client ID** par jao.
+3. Application type: **Web application**.
+4. Authorized JavaScript origin add karo:
+
+```text
+http://localhost:5173
+```
+
+5. Client ID copy karo.
+6. Backend IntelliJ environment variables me add karo:
+
+```env
+GOOGLE_OAUTH_CLIENT_ID=your-client-id.apps.googleusercontent.com
+```
+
+7. Frontend `.env` me add karo:
+
+```env
+VITE_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+```
+
+8. Backend aur frontend dono restart karo.
 
 Docker se local MongoDB start karna ho:
 

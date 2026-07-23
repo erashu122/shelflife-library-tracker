@@ -1,6 +1,7 @@
 package com.shelflife.controller;
 
 import com.shelflife.dto.auth.AuthResponse;
+import com.shelflife.dto.auth.GoogleLoginRequest;
 import com.shelflife.dto.auth.LoginRequest;
 import com.shelflife.dto.auth.RegisterRequest;
 import com.shelflife.service.AuthService;
@@ -31,5 +32,10 @@ public class AuthController {
     @PostMapping("/login")
     public AuthResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
+    }
+
+    @PostMapping("/google")
+    public AuthResponse googleLogin(@Valid @RequestBody GoogleLoginRequest request) {
+        return authService.googleLogin(request);
     }
 }

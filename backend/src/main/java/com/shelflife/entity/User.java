@@ -28,7 +28,7 @@ public class User {
     @Indexed(unique = true)
     private String email;
 
-    @Indexed(unique = true, sparse = true)
+    @Indexed(name = "phone_unique_not_null", unique = true, partialFilter = "{ 'phone': { '$type': 'string' } }")
     private String phone;
 
     private String password;

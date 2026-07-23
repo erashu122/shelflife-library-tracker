@@ -21,6 +21,11 @@ export function AuthProvider({ children }) {
       setAuth(data);
       return data;
     },
+    async googleLogin(payload) {
+      const data = await authService.googleLogin(payload);
+      setAuth(data);
+      return data;
+    },
     updateUser(user) {
       setAuth((current) => ({ ...current, user }));
     },

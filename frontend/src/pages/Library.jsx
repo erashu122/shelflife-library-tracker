@@ -27,8 +27,14 @@ export default function Library() {
   }, [loadLibrary]);
 
   async function handleUpdate(id, payload) {
+    const updatePayload = {
+      ...payload,
+      rating: payload.rating > 0 ? payload.rating : null,
+      review: payload.review?.trim() || '',
+    };
+
     try {
-      await libraryService.update(id, payload);
+      await libraryService.update(id, updatePayload);
       toast.success('Library book updated');
       loadLibrary();
     } catch (error) {

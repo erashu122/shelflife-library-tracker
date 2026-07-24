@@ -1,5 +1,6 @@
 import { BookMarked, ChartNoAxesCombined, Library, LogOut, Search, Sparkles, UserRound } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router-dom';
+import Footer from '../components/Footer';
 import ThemeToggle from '../components/ThemeToggle';
 import { useAuth } from '../context/AuthContext';
 
@@ -64,6 +65,7 @@ export default function AppLayout() {
 
         <main className="min-w-0 pb-10">
           <Outlet />
+          <Footer />
         </main>
       </div>
     </div>

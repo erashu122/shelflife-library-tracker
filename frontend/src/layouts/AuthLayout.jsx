@@ -1,5 +1,6 @@
 import { BookMarked, ChartNoAxesCombined, LockKeyhole, Search } from 'lucide-react';
 import { Navigate, Outlet } from 'react-router-dom';
+import Footer from '../components/Footer';
 import ThemeToggle from '../components/ThemeToggle';
 import { useAuth } from '../context/AuthContext';
 
@@ -30,7 +31,10 @@ export default function AuthLayout() {
             <span className="flex items-center gap-3 rounded-lg bg-white/50 p-4 dark:bg-white/5"><ChartNoAxesCombined size={18} /> Dashboard metrics and progress</span>
           </div>
         </aside>
-        <Outlet />
+        <div>
+          <Outlet />
+          <Footer />
+        </div>
       </section>
     </main>
   );
